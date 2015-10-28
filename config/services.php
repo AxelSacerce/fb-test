@@ -34,5 +34,11 @@ return [
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    
+    'facebook' => [
+    'client_id' => '1043799372306723',
+    'client_secret' => 'c793a0ba403ebada8e407843c1b38138',
+    'redirect' => 'http://fbcon.de/auth/facebook/callback',
+],
 
 ];

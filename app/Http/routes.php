@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('auth/facebook', 'SocialController@redirectToProvider');
+Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
+
+Route::get('ingreso', function () {
+    return view('usuarios.ingreso');
+});

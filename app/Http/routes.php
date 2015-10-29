@@ -18,6 +18,21 @@ Route::get('/', function () {
 Route::get('auth/facebook', 'SocialController@redirectToProvider');
 Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
 
-Route::get('ingreso', function () {
-    return view('usuarios.ingreso');
-});
+
+Route::group(['middleware' => 'auth'],function()
+    {
+      // Se cumplirá solo si el usuario ha iniciado sesion
+      Route::get('ingreso', function ()
+        {
+            return view('usuarios.ingreso');
+      
+        }); 
+        
+        /*Route::get('share', function ()
+        {
+            return view('usuarios.share');
+      
+        });  */
+    });
+
+      

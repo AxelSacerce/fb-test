@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Socialite;
+use App\User;
+use Auth;
 use App\Http\Controllers\Controller;
 
 class SocialController extends Controller
@@ -97,19 +99,54 @@ class SocialController extends Controller
      */
     public function handleProviderCallback()
     {
+    
 
         $user = Socialite::driver('facebook')->user();
         # Registro en la base de datos
-        $db = User::where('idsocial',$user->get())->first();
+        $db = User::where('id_social', $user->getId())->first();
+                
         if($db)
         {
-            echo 'Bienvenido ',$user->getName();
+            //$db = User::where('id_social',$user->getId())->first();
+            
+            // Usurio registrado
+            if (Auth::attempt(['id_social' => $user->getId(), 'password' => '123456'])) 
+                {
+                    /*DB::table('users')
+                            ->where('id_social', $user->getId())
+                            ->update(['social_token' => $user->token]);*/
+                    
+                    // Authentication passed...
+                    return redirect()->intended('ingreso');
+                }
             
         }else
         {
-            echo 'No hay registros';
+            //(dd('else');
+            // usuario nuevo
+            
+            $nuevo = new User();
+            $nuevo->id_social       = $user->getId();
+            $nuevo->username        = $user->getName();
+            $nuevo->avatar          = $user->getAvatar();
+            $nuevo->name            = $user->getName();
+            $nuevo->email           = $user->getEmail();
+            $nuevo->password        = '$2y$10$qCmaxJthB/EBN0iaqVl6JeNw1dnYLxvZOai8fhFjtOxv0KAj5dcbu';
+            $nuevo->social_token    = $user->token;
+            
+            if($nuevo->save())
+            {
+                
+                if (Auth::attempt(['id_social' => $user->getId(), 'password' => '123456'])) 
+                {
+                    // Authentication passed...
+                    return redirect()->intended('ingreso');
+                }
+            }
+            
+            
         }
-        //dd($user);
+       
         
     }
 }

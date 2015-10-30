@@ -112,12 +112,10 @@ class SocialController extends Controller
             // Usurio registrado
             if (Auth::attempt(['id_social' => $user->getId(), 'password' => '123456'])) 
                 {
-                    /*DB::table('users')
-                            ->where('id_social', $user->getId())
-                            ->update(['social_token' => $user->token]);*/
                     
                     // Authentication passed...
                     return redirect()->intended('ingreso');
+                    
                 }
             
         }else
@@ -131,7 +129,7 @@ class SocialController extends Controller
             $nuevo->avatar          = $user->getAvatar();
             $nuevo->name            = $user->getName();
             $nuevo->email           = $user->getEmail();
-            $nuevo->password        = '$2y$10$qCmaxJthB/EBN0iaqVl6JeNw1dnYLxvZOai8fhFjtOxv0KAj5dcbu';
+            $nuevo->password        = '$2y$10$qCmaxJthB/EBN0iaqVl6JeNw1dnYLxvZOai8fhFjtOxv0KAj5dcbu';  // password generado la contraseña es 123456
             $nuevo->social_token    = $user->token;
             
             if($nuevo->save())

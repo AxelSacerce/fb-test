@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('auth/facebook', 'SocialController@redirectToProvider');
 Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 
 Route::group(['middleware' => 'auth'],function()
@@ -34,5 +35,6 @@ Route::group(['middleware' => 'auth'],function()
       
         });  */
     });
+
 
       

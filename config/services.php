@@ -36,8 +36,8 @@ return [
     ],
     
     'facebook' => [
-    'client_id' => '1043799372306723',
-    'client_secret' => 'c793a0ba403ebada8e407843c1b38138',
+    'client_id' => '418570198235010',
+    'client_secret' => '7ab2a76b4f35cb3bdc114f456b7370de',
     'redirect' => 'http://fbcon.de/auth/facebook/callback',
 ],
 
